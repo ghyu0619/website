@@ -127,6 +127,11 @@
         document.getElementById('user-info').style.display = 'none';
       }
     });
+
+    // 함수들을 전역 스코프에 노출하여 onclick 핸들러에서 접근 가능하도록 설정
+    window.login = login;
+    window.register = register;
+    window.goPage = goPage;;
   </script>
 </body>
 </html>
