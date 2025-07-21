@@ -1,3 +1,4 @@
+<!-- 파일명: index.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,10 +24,12 @@
       padding: 10px 20px;
       background: #fff;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
     }
     .auth-form {
       display: flex;
       gap: 8px;
+      margin-left: auto;
     }
     .auth-form input {
       padding: 6px;
@@ -115,12 +118,14 @@
 <body>
   <header>
     <div class="logo">싱싱수S</div>
+    <!-- 로그인 전에는 auth-form이 표시됩니다 -->
     <div class="auth-form" id="auth-box">
       <input type="text" placeholder="ID" id="login-id">
       <input type="password" placeholder="Password" id="login-pw">
       <button onclick="login()">로그인</button>
       <button onclick="register()">회원가입</button>
     </div>
+    <!-- 로그인 후에는 auth-info가 표시됩니다 -->
     <div class="auth-info" id="user-info" style="display: none;">
       <span id="user-name"></span> / <span id="user-group"></span>
     </div>
@@ -142,10 +147,10 @@
   <script>
     // 더미용 예시 - 실제 로그인/파이어베이스 연결 시 교체 필요
     const currentUser = {
-      isLoggedIn: true,
-      name: "김철수",
-      group: "3조",
-      isAdmin: true,
+      isLoggedIn: false,  // 초기 상태: 로그인 전
+      name: "",
+      group: "",
+      isAdmin: false,
     };
 
     function renderUserInfo() {
@@ -155,6 +160,9 @@
         document.getElementById('user-group').innerText = currentUser.group;
         document.getElementById('user-info').style.display = 'block';
         document.getElementById('admin-btn').style.display = currentUser.isAdmin ? 'block' : 'none';
+      } else {
+        document.getElementById('auth-box').style.display = 'flex';
+        document.getElementById('user-info').style.display = 'none';
       }
     }
 
@@ -168,12 +176,17 @@
     }
 
     function login() {
-      // Firebase 연동 예정
-      alert("로그인 기능은 추후 구현됩니다.");
+      // TODO: Firebase auth 연결 후 실제 로그인 처리
+      // 현재는 예시로 로그인 성공 처리
+      currentUser.isLoggedIn = true;
+      currentUser.name = "김철수";
+      currentUser.group = "3조";
+      currentUser.isAdmin = true; // 예시: 어드민 권한
+      renderUserInfo();
     }
 
     function register() {
-      // Firebase 연동 예정
+      // TODO: Firebase auth 연결 후 회원가입 처리
       alert("회원가입 기능은 추후 구현됩니다.");
     }
 
