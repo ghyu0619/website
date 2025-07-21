@@ -71,7 +71,7 @@
       <button id="admin-btn" class="admin-button" onclick="goPage('admin')">관리자</button>
     </div>
     <div class="auth-form" id="auth-box">
-      <input type="email" placeholder="Email(ID)" id="login-id">
+      <input type="email" placeholder="ID" id="login-id">
       <input type="password" placeholder="Password" id="login-pw">
       <button onclick="login()">로그인</button>
       <button onclick="register()">회원가입</button>
@@ -125,7 +125,7 @@
     async function login() {
       const email = document.getElementById('login-id').value.trim();
       const pw = document.getElementById('login-pw').value.trim();
-      if (!email || !pw) { alert('Email과 비밀번호를 모두 입력해주세요.'); return; }
+      if (!email || !pw) { alert('ID와와 비밀번호를 모두 입력해주세요.'); return; }
       try {
         const cred = await signInWithEmailAndPassword(auth, email, pw);
         const docSnap = await getDoc(doc(db, 'users', cred.user.uid));
