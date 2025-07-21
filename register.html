@@ -15,18 +15,21 @@
       width: 100%; max-width: 400px;
     }
     .register-form h1 { margin-top: 0; margin-bottom: 20px; font-size: 1.5rem; }
-    .register-form input,
-    .register-form select {
+    .register-form input, .register-form select, .register-form button {
       width: 100%; padding: 10px; margin-bottom: 15px;
-      border: 1px solid #ccc; border-radius: 4px;
-      font-size: 1rem;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;
     }
-    .register-form button {
-      width: 100%; padding: 12px; background: #007BFF;
-      color: white; border: none; border-radius: 4px;
-      font-size: 1rem; cursor: pointer;
-    }
+    .register-form button { background: #007BFF; color: white; border: none; cursor: pointer; }
     .register-form button:hover { background: #0056b3; }
+    @media (max-width: 600px) {
+      /* 모바일 반응형: 입력 필드와 버튼 전체 너비 */
+      .register-form input,
+      .register-form select,
+      .register-form button {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
   </style>
 </head>
 <body>
@@ -77,18 +80,10 @@
       const pw = document.getElementById('reg-pw').value.trim();
       const group = document.getElementById('reg-group').value;
       if (!email || !pw || !group) { alert('모든 항목을 입력해주세요.'); return; }
-      try {
-        const cred = await createUserWithEmailAndPassword(auth, email, pw);
-        await setDoc(doc(db, 'users', cred.user.uid), {
-          name: email.split('@')[0],
-          group,
-          isAdmin: false
-        });
-        alert('가입 완료! 로그인해주세요.');
-        window.location.href = 'index.html';
-      } catch (err) {
-        alert(err.message);
-      }
+      const cred = await createUserWithEmailAndPassword(auth, email, pw);
+      await setDoc(doc(db, 'users', cred.user.uid), { name: email.split('@')[0], group, isAdmin: false });
+      alert('가입 완료! 로그인해주세요.');
+      window.location.href = 'index.html';
     }
 
     window.handleRegister = handleRegister;
