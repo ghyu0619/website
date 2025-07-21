@@ -16,6 +16,10 @@
     .btn-group button:hover { background: #0056b3; }
     hr { border: 0; border-top: 1px solid #ddd; margin: 20px 0; }
     .table-status { font-size: 1.2rem; color: #333; }
+    @media (max-width: 600px) {
+      .btn-group { flex-direction: column; }
+      .btn-group button { width: 100%; }
+    }
   </style>
 </head>
 <body>
