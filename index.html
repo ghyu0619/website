@@ -50,9 +50,19 @@
     h1 { font-size: 2.2rem; margin-bottom: 10px; }
     h2 { font-size: 1.2rem; margin-bottom: 40px; color: #777; }
     .button-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 20px; }
-    .button-group button { flex: 1 1 30%; min-width: 100px; max-width: 200px; padding: 14px 24px; background: #007BFF; color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: 0.3s ease; }
+    .button-group button {
+      flex: 1 1 30%; min-width: 100px; max-width: 200px;
+      padding: 14px 24px; background: #007BFF; color: white;
+      border: none; border-radius: 8px; font-size: 1rem;
+      cursor: pointer; transition: 0.3s ease;
+    }
     .button-group button:hover { background: #0056b3; }
-    .long-button { width: 100%; max-width: 640px; margin: 10px auto; display: block; padding: 16px; background: #28A745; color: white; font-size: 1rem; border-radius: 8px; border: none; cursor: pointer; }
+    .long-button {
+      width: 100%; max-width: 640px; margin: 10px auto;
+      display: block; padding: 16px; background: #28A745;
+      color: white; font-size: 1rem; border-radius: 8px;
+      border: none; cursor: pointer;
+    }
     @media (max-width: 600px) {
       .button-group { flex-direction: column; }
       .button-group button { width: 100%; }
@@ -66,7 +76,7 @@
       <button id="admin-btn" class="admin-button" onclick="goPage('admin')">관리자</button>
     </div>
     <div class="auth-form" id="auth-box">
-      <input type="ID" placeholder="ID" id="login-id">
+      <input type="email" placeholder="Email(ID)" id="login-id">
       <input type="password" placeholder="Password" id="login-pw">
       <button onclick="login()">로그인</button>
       <button onclick="register()">회원가입</button>
@@ -89,7 +99,7 @@
     <button class="long-button" onclick="goPage('boardgame')">보드게임카페</button>
   </main>
 
-  <!-- Firebase SDK -->
+  <!-- Firebase SDK 및 스크립트 -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js';
@@ -148,9 +158,7 @@
     }
 
     function logout() {
-      signOut(auth).then(() => {
-        window.location.reload();
-      });
+      signOut(auth).then(() => window.location.reload());
     }
 
     onAuthStateChanged(auth, async user => {
