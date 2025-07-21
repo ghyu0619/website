@@ -19,53 +19,42 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     .logo { font-size: 1.2rem; font-weight: bold; }
-    .admin-container {
-      flex: 1;
-      text-align: center;
-    }
+    .admin-container { flex: 1; text-align: center; }
     .admin-button {
-      background: #dc3545;
-      color: white;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      display: none;
-      font-size: 0.9rem;
+      background: #dc3545; color: white; padding: 6px 12px; border: none; border-radius: 4px;
+      cursor: pointer; display: none; font-size: 0.9rem;
     }
     .auth-form { display: flex; gap: 8px; margin-left: auto; }
     .auth-form input { padding: 6px; border-radius: 4px; border: 1px solid #ccc; }
     .auth-form button { padding: 6px 10px; border: none; background: #4CAF50; color: white; border-radius: 4px; cursor: pointer; }
     .auth-info { display: flex; align-items: center; gap: 8px; font-size: 14px; margin-left: auto; }
     .logout-button {
-      padding: 6px 10px;
-      border: none;
-      background: #888;
-      color: white;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
+      padding: 6px 10px; border: none; background: #888; color: white; border-radius: 4px;
+      cursor: pointer; font-size: 0.9rem;
     }
     main { text-align: center; padding: 40px 20px; }
     h1 { font-size: 2.2rem; margin-bottom: 10px; }
     h2 { font-size: 1.2rem; margin-bottom: 40px; color: #777; }
     .button-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 20px; }
     .button-group button {
-      flex: 1 1 30%; min-width: 100px; max-width: 200px;
-      padding: 14px 24px; background: #007BFF; color: white;
-      border: none; border-radius: 8px; font-size: 1rem;
-      cursor: pointer; transition: 0.3s ease;
+      flex: 1 1 30%; min-width: 100px; max-width: 200px; padding: 14px 24px;
+      background: #007BFF; color: white; border: none; border-radius: 8px;
+      font-size: 1rem; cursor: pointer; transition: 0.3s ease;
     }
     .button-group button:hover { background: #0056b3; }
     .long-button {
-      width: 100%; max-width: 640px; margin: 10px auto;
-      display: block; padding: 16px; background: #28A745;
-      color: white; font-size: 1rem; border-radius: 8px;
-      border: none; cursor: pointer;
+      width: 100%; max-width: 640px; margin: 10px auto; display: block;
+      padding: 16px; background: #28A745; color: white; font-size: 1rem;
+      border-radius: 8px; border: none; cursor: pointer;
     }
     @media (max-width: 600px) {
       .button-group { flex-direction: column; }
       .button-group button { width: 100%; }
+      header { flex-direction: column; align-items: flex-start; }
+      .logo { margin-bottom: 8px; }
+      .admin-container { order: 3; width: 100%; text-align: left; margin-top: 8px; }
+      .auth-form, .auth-info { order: 2; width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+      .auth-form input, .auth-info span, .auth-info button, .auth-form button { flex: 1 1 100%; margin-bottom: 8px; }
     }
   </style>
 </head>
@@ -99,7 +88,6 @@
     <button class="long-button" onclick="goPage('boardgame')">보드게임카페</button>
   </main>
 
-  <!-- Firebase SDK 및 스크립트 -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js';
@@ -130,36 +118,21 @@
     async function login() {
       const email = document.getElementById('login-id').value.trim();
       const pw = document.getElementById('login-pw').value.trim();
-      if (!email || !pw) {
-        alert('Email과 비밀번호를 모두 입력해주세요.');
-        return;
-      }
+      if (!email || !pw) { alert('Email과 비밀번호를 모두 입력해주세요.'); return; }
       try {
         const cred = await signInWithEmailAndPassword(auth, email, pw);
         const docSnap = await getDoc(doc(db, 'users', cred.user.uid));
         if (!docSnap.exists()) throw new Error('프로필 정보를 찾을 수 없습니다.');
         renderUserInfo(docSnap.data());
       } catch (err) {
-        const msg = {
-          'auth/user-not-found': '등록되지 않은 사용자입니다.',
-          'auth/wrong-password': '비밀번호가 잘못되었습니다.',
-        }[err.code] || err.message;
+        const msg = { 'auth/user-not-found': '등록되지 않은 사용자입니다.', 'auth/wrong-password': '비밀번호가 잘못되었습니다.' }[err.code] || err.message;
         alert(msg);
       }
     }
 
-    function register() {
-      window.location.href = 'register.html';
-    }
-
-    function goPage(page) {
-      if (!auth.currentUser) { alert('로그인이 필요합니다.'); return; }
-      alert(`${page} 페이지로 이동`);
-    }
-
-    function logout() {
-      signOut(auth).then(() => window.location.reload());
-    }
+    function register() { window.location.href = 'register.html'; }
+    function goPage(page) { if (!auth.currentUser) { alert('로그인이 필요합니다.'); return; } alert(`${page} 페이지로 이동`); }
+    function logout() { signOut(auth).then(() => window.location.reload()); }
 
     onAuthStateChanged(auth, async user => {
       if (user) {
@@ -171,7 +144,6 @@
       }
     });
 
-    // 전역 노출
     window.login = login;
     window.register = register;
     window.goPage = goPage;
