@@ -21,8 +21,14 @@
     .logo { font-size: 1.2rem; font-weight: bold; }
     .admin-container { flex: 1; text-align: center; }
     .admin-button {
-      background: #dc3545; color: white; padding: 6px 12px; border: none; border-radius: 4px;
-      cursor: pointer; display: none; font-size: 0.9rem;
+      background: #dc3545;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: none;
+      font-size: 0.9rem;
     }
     .auth-form { display: flex; gap: 8px; margin-left: auto; }
     .auth-form input { padding: 6px; border-radius: 4px; border: 1px solid #ccc; }
@@ -88,6 +94,7 @@
     <button class="long-button" onclick="goPage('boardgame')">보드게임카페</button>
   </main>
 
+  <!-- Firebase SDK 및 스크립트 -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js';
@@ -131,7 +138,10 @@
     }
 
     function register() { window.location.href = 'register.html'; }
-    function goPage(page) { if (!auth.currentUser) { alert('로그인이 필요합니다.'); return; } alert(`${page} 페이지로 이동`); }
+    function goPage(page) {
+      if (!auth.currentUser) { alert('로그인이 필요합니다.'); return; }
+      window.location.href = `${page}.html`;
+    }
     function logout() { signOut(auth).then(() => window.location.reload()); }
 
     onAuthStateChanged(auth, async user => {
