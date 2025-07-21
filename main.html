@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>싱싱수S 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Pretendard', sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f7f7f7;
+      color: #333;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .auth-form {
+      display: flex;
+      gap: 8px;
+    }
+    .auth-form input {
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .auth-form button {
+      padding: 6px 10px;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .auth-info {
+      font-size: 14px;
+    }
+    main {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: #777;
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .button-group button {
+      flex: 1 1 30%;
+      min-width: 100px;
+      max-width: 200px;
+      padding: 14px 24px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .button-group button:hover {
+      background: #0056b3;
+    }
+    .long-button {
+      width: 100%;
+      max-width: 640px;
+      margin: 10px auto;
+      display: block;
+      padding: 16px;
+      background: #28A745;
+      color: white;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    .admin-button {
+      background: #dc3545;
+      color: white;
+      padding: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+      }
+      .button-group button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">싱싱수S</div>
+    <div class="auth-form" id="auth-box">
+      <input type="text" placeholder="ID" id="login-id">
+      <input type="password" placeholder="Password" id="login-pw">
+      <button onclick="login()">로그인</button>
+      <button onclick="register()">회원가입</button>
+    </div>
+    <div class="auth-info" id="user-info" style="display: none;">
+      <span id="user-name"></span> / <span id="user-group"></span>
+    </div>
+  </header>
+
+  <main>
+    <h1>싱싱수S 2025</h1>
+    <h2>부제: 십자가, 그 사랑 안에서</h2>
+
+    <div class="button-group">
+      <button onclick="goPage('schedule')">수련회 시간표</button>
+      <button onclick="goPage('teams')">조편성</button>
+      <button onclick="goPage('praise')">수련회 찬양</button>
+    </div>
+    <button class="long-button" onclick="goPage('boardgame')">보드게임카페</button>
+    <button class="admin-button" id="admin-btn" onclick="goPage('admin')" style="display: none;">관리자</button>
+  </main>
+
+  <script>
+    // 더미용 예시 - 실제 로그인/파이어베이스 연결 시 교체 필요
+    const currentUser = {
+      isLoggedIn: true,
+      name: "김철수",
+      group: "3조",
+      isAdmin: true,
+    };
+
+    function renderUserInfo() {
+      if (currentUser.isLoggedIn) {
+        document.getElementById('auth-box').style.display = 'none';
+        document.getElementById('user-name').innerText = currentUser.name;
+        document.getElementById('user-group').innerText = currentUser.group;
+        document.getElementById('user-info').style.display = 'block';
+        document.getElementById('admin-btn').style.display = currentUser.isAdmin ? 'block' : 'none';
+      }
+    }
+
+    function goPage(page) {
+      if (!currentUser.isLoggedIn) {
+        alert("로그인이 필요합니다.");
+        return;
+      }
+      // 예: window.location.href = `/${page}.html`
+      alert(`${page} 페이지로 이동`);
+    }
+
+    function login() {
+      // Firebase 연동 예정
+      alert("로그인 기능은 추후 구현됩니다.");
+    }
+
+    function register() {
+      // Firebase 연동 예정
+      alert("회원가입 기능은 추후 구현됩니다.");
+    }
+
+    window.onload = renderUserInfo;
+  </script>
+</body>
+</html>
