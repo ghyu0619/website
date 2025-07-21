@@ -1,0 +1,75 @@
+<!-- 파일명: register.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 - 싱싱수S 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet">
+  <style>
+    body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Pretendard', sans-serif; background: #f7f7f7; }
+    .register-form { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+    .register-form h1 { margin-top: 0; margin-bottom: 20px; font-size: 1.5rem; }
+    .register-form input, .register-form select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+    .register-form button { width: 100%; padding: 12px; background: #007BFF; color: white; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; }
+    .register-form button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <form class="register-form" onsubmit="handleRegister(event)">
+    <h1>회원가입</h1>
+    <input type="email" id="reg-id" placeholder="Email 입력" required>
+    <input type="password" id="reg-pw" placeholder="Password 입력" required>
+    <select id="reg-group" required>
+      <option value="" disabled selected>소속 목장 선택</option>
+      <option value="네팔로우">네팔로우</option>
+      <option value="두마게이트">두마게이트</option>
+      <option value="두마게티">두마게티</option>
+      <option value="몽글로리">몽글로리</option>
+      <option value="미소속">미소속</option>
+      <option value="바양헝거르">바양헝거르</option>
+      <option value="사라나오">사라나오</option>
+      <option value="시로이시">시로이시</option>
+      <option value="시에라리온">시에라리온</option>
+      <option value="앙헬레스">앙헬레스</option>
+      <option value="캄온츠낭">캄온츠낭</option>
+      <option value="호치민">호치민</option>
+    </select>
+    <button type="submit">가입하기</button>
+  </form>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
+    import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js';
+    import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCVTWipZBOv4orTUQiLt1yLl5NP68yDO6E",
+      authDomain: "singsingsu.firebaseapp.com",
+      projectId: "singsingsu",
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const email = document.getElementById('reg-id').value.trim();
+      const pw = document.getElementById('reg-pw').value.trim();
+      const group = document.getElementById('reg-group').value;
+      if (!email || !pw || !group) { alert('모든 항목을 입력해주세요.'); return; }
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, pw);
+        await setDoc(doc(db, 'users', cred.user.uid), {
+          name: email.split('@')[0],
+          group,
+          isAdmin: false
+        });
+        alert('가입 완료! 로그인해주세요.');
+        window.location.href = 'index.html';
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+  </script>
+</body>
+</html>
