@@ -1,0 +1,33 @@
+<!-- 파일명: boardgame.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>보드게임카페</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; padding: 0; background: #fafafa; font-family: 'Pretendard', sans-serif; }
+    main { max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }
+    .boardgame-image { max-width: 100%; height: auto; border-radius: 8px; }
+    .btn-group { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+    .btn-group button { padding: 12px 24px; font-size: 1rem; border: none; border-radius: 6px; cursor: pointer; background: #007BFF; color: white; transition: background 0.3s ease; }
+    .btn-group button:hover { background: #0056b3; }
+    hr { border: 0; border-top: 1px solid #ddd; margin: 20px 0; }
+    .table-status { font-size: 1.2rem; color: #333; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>보드게임카페</h1>
+    <img src="boardgame_example.png" alt="Board Game Cafe" class="boardgame-image">
+    <div class="btn-group">
+      <button onclick="alert('간식주문 페이지로 이동합니다.')">간식주문</button>
+      <button onclick="alert('보드게임소개 페이지로 이동합니다.')">보드게임소개</button>
+    </div>
+    <hr>
+    <div class="table-status">테이블 현황</div>
+  </main>
+</body>
+</html>
