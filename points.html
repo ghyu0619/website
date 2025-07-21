@@ -21,6 +21,12 @@
   </style>
 </head>
 <body>
+    <header>
+    <div class="logo">싱싱수S</div>
+    <div class="admin-container"><button id="admin-btn" class="admin-button" onclick="goPage('admin')">관리자</button></div>
+    <div class="auth-form" id="auth-box"><input id="login-id" placeholder="Email"><input type="password" id="login-pw" placeholder="Password"><button onclick="login()">로그인</button><button onclick="register()">회원가입</button></div>
+    <div class="auth-info" id="user-info"><span id="user-name"></span>/<span id="user-group"></span><button class="logout-button" onclick="logout()">로그아웃</button></div>
+  </header>
   <main>
     <h1>포인트 관리 페이지</h1>
     <p>테스트</p>
